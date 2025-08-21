@@ -33,11 +33,11 @@ INSERT INTO Departments (DepartmentID, DepartmentName) VALUES
 
 -- Insert Students
 INSERT INTO Students (StudentID, Name, Age, DepartmentID) VALUES
-(101, 'Ravi Kumar', 19, 1),
-(102, 'Anita Sharma', 22, 5),
-(103, 'Vikram Singh', 18, 2),
-(104, 'Neha Verma', 21, 1),
-(105, 'Arjun Patel', 23, 3);
+(101, 'Messi', 36, 1),
+(102, 'Ronaldo', 38, 5),
+(103, 'Neymar', 34, 2),
+(104, 'Sergio Ramous', 38, 1),
+(105, 'Lamin yemal', 18, 3);
 
 -- Insert Courses
 INSERT INTO Courses (CourseID, CourseName, DepartmentID) VALUES
@@ -82,9 +82,10 @@ LEFT JOIN Departments D ON C.DepartmentID = D.DepartmentID;
 
 -- 3. RIGHT JOIN Students with Courses 
 -- (Show all courses, even if no student has enrolled in them)
--- Note: Since we don’t have a Student-Course enrollment table,
+-- Note: Since we donâ€™t have a Student-Course enrollment table,
 -- we can assume a hypothetical relation. 
 -- If not, RIGHT JOIN Students with Departments + Courses mapping.
 SELECT S.Name AS StudentName, C.CourseName
 FROM Students S
 RIGHT JOIN Courses C ON S.DepartmentID = C.DepartmentID;
+
