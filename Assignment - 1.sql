@@ -1,12 +1,13 @@
--- SQL --
+-- 1] CREATING TABLES -- 
 
--- Departments Table
+-- 1) Creating Departments Table
+
 CREATE TABLE Departments (
     DepartmentID INT PRIMARY KEY,
     DepartmentName VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Students Table
+-- 2) creating Students Table
 CREATE TABLE Students (
     StudentID INT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE Students (
     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
 );
 
--- Courses Table
+-- 3)Creating Courses Table
 CREATE TABLE Courses (
     CourseID INT PRIMARY KEY,
     CourseName VARCHAR(50) NOT NULL,
@@ -23,7 +24,11 @@ CREATE TABLE Courses (
     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
 );
 
--- Insert Departments
+---------------------------------------------------------------------------------------------------
+
+-- 2] INSERTING RECORDS --
+
+-- 1) Inserting records in table Departments
 INSERT INTO Departments (DepartmentID, DepartmentName) VALUES
 (1, 'Computer Science'),
 (2, 'Mechanical'),
@@ -31,7 +36,7 @@ INSERT INTO Departments (DepartmentID, DepartmentName) VALUES
 (4, 'Civil'),
 (5, 'Electronics');
 
--- Insert Students
+-- 2) Inserting records in table Students
 INSERT INTO Students (StudentID, Name, Age, DepartmentID) VALUES
 (101, 'Messi', 36, 1),
 (102, 'Ronaldo', 38, 5),
@@ -39,7 +44,7 @@ INSERT INTO Students (StudentID, Name, Age, DepartmentID) VALUES
 (104, 'Sergio Ramous', 38, 1),
 (105, 'Lamin yemal', 18, 3);
 
--- Insert Courses
+-- 3)Inserting records in table Courses
 INSERT INTO Courses (CourseID, CourseName, DepartmentID) VALUES
 (201, 'DBMS', 1),
 (202, 'Thermodynamics', 2),
@@ -48,44 +53,52 @@ INSERT INTO Courses (CourseID, CourseName, DepartmentID) VALUES
 (205, 'Artificial Intelligence', 1),
 (206, 'Microprocessors', 5);
 
--- 1. Display all students whose age is greater than 20
+---------------------------------------------------------------------------------------------------
+
+-- 3] APPLY WHERE AND OPERATORS --
+
+-- 1) Display all students whose age is greater than 20
 SELECT * FROM Students
 WHERE Age > 20;
 
--- 2. Display all courses of the "Computer Science" department
+-- 2) Display all courses of the "Computer Science" department
 SELECT C.CourseName 
 FROM Courses C
 JOIN Departments D ON C.DepartmentID = D.DepartmentID
 WHERE D.DepartmentName = 'Computer Science';
 
--- 3. Display all students who belong to the "Electronics" department
+-- 3) Display all students who belong to the "Electronics" department
 SELECT S.Name, S.Age 
 FROM Students S
 JOIN Departments D ON S.DepartmentID = D.DepartmentID
 WHERE D.DepartmentName = 'Electronics';
 
--- 4. Display students whose age is between 18 and 22
+-- 4) Display students whose age is between 18 and 22
 SELECT * FROM Students
 WHERE Age BETWEEN 18 AND 22;
 
--- 1. INNER JOIN Students with Departments 
--- (Show student names with their department names)
+---------------------------------------------------------------------------------------------------
+
+-- 4] JOINS -- 
+
+-- 1) INNER JOIN Students with Departments (Show student names with their department names)
 SELECT S.Name AS StudentName, D.DepartmentName
 FROM Students S
 INNER JOIN Departments D ON S.DepartmentID = D.DepartmentID;
 
--- 2. LEFT JOIN Courses with Departments 
--- (Show all courses even if some department does not exist)
+-- 2) LEFT JOIN Courses with Departments (Show all courses even if some department does not exist)
 SELECT C.CourseName, D.DepartmentName
 FROM Courses C
 LEFT JOIN Departments D ON C.DepartmentID = D.DepartmentID;
 
--- 3. RIGHT JOIN Students with Courses 
--- (Show all courses, even if no student has enrolled in them)
--- Note: Since we don’t have a Student-Course enrollment table,
+-- 3) RIGHT JOIN Students with Courses (Show all courses, even if no student has enrolled in them)
+-- Note: Since we don’t have a Student-Course enrollment table.
 -- we can assume a hypothetical relation. 
 -- If not, RIGHT JOIN Students with Departments + Courses mapping.
 SELECT S.Name AS StudentName, C.CourseName
 FROM Students S
 RIGHT JOIN Courses C ON S.DepartmentID = C.DepartmentID;
+
+---------------------------------------------------------------------------------------------------
+
 
